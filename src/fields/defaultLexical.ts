@@ -7,6 +7,23 @@ import {
   lexicalEditor,
   UnderlineFeature,
   type LinkFields,
+  AlignFeature,
+  IndentFeature,
+  HeadingFeature,
+  FixedToolbarFeature,
+  InlineToolbarFeature,
+  HorizontalRuleFeature,
+  UnorderedListFeature,
+  OrderedListFeature,
+  ChecklistFeature,
+  BlockquoteFeature,
+  UploadFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  InlineCodeFeature,
+  EXPERIMENTAL_TableFeature,
+  RelationshipFeature,
 } from '@payloadcms/richtext-lexical'
 
 export const defaultLexical = lexicalEditor({
@@ -15,8 +32,39 @@ export const defaultLexical = lexicalEditor({
     UnderlineFeature(),
     BoldFeature(),
     ItalicFeature(),
+    StrikethroughFeature(),
+    SubscriptFeature(),
+    SuperscriptFeature(),
+    InlineCodeFeature(),
+    AlignFeature(),
+    IndentFeature(),
+    HeadingFeature(),
+    UnorderedListFeature(),
+    OrderedListFeature(),
+    ChecklistFeature(),
+    BlockquoteFeature(),
+    HorizontalRuleFeature(),
+    EXPERIMENTAL_TableFeature(),
+    RelationshipFeature({
+      enabledCollections: ['posts', 'pages', 'categories', 'experiences', 'links', 'companies'],
+    }),
+    FixedToolbarFeature(),
+    InlineToolbarFeature(),
+    UploadFeature({
+      collections: {
+        media: {
+          fields: [
+            {
+              name: 'caption',
+              type: 'richText',
+              editor: lexicalEditor(),
+            },
+          ],
+        },
+      },
+    }),
     LinkFeature({
-      enabledCollections: ['pages', 'posts'],
+      enabledCollections: ['pages', 'posts', 'categories', 'experiences', 'links', 'companies'],
       fields: ({ defaultFields }) => {
         const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
           if ('name' in field && field.name === 'url') return false
