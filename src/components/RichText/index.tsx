@@ -25,38 +25,86 @@ import { cn } from '@/utilities/ui'
 const sanitizeRichText = (data: DefaultTypedEditorState): DefaultTypedEditorState => {
   if (!data?.root?.children) return data
 
-  const sanitizeNode = (node: any): any => {
-    if (node.type === 'paragraph' && node.children) {
-      // Ensure paragraph children don't contain block-level elements
-      const sanitizedChildren = node.children.flatMap((child: any) => {
-        // If a paragraph contains another paragraph, flatten it
-        if (child.type === 'paragraph' && child.children) {
-          return child.children
+  const processChildren = (children: any[]): any[] => {
+    const result: any[] = []
+
+    for (const child of children) {
+      if (child.type === 'paragraph' && child.children) {
+        // Check if this paragraph contains other block elements
+        const hasNestedBlocks = child.children.some(
+          (nestedChild: any) =>
+            nestedChild.type === 'paragraph' ||
+            nestedChild.type === 'heading' ||
+            nestedChild.type === 'list' ||
+            nestedChild.type === 'blockquote',
+        )
+
+        if (hasNestedBlocks) {
+          // Split nested blocks into separate top-level elements
+          const flattened: any[] = []
+
+          for (const nestedChild of child.children) {
+            if (
+              nestedChild.type === 'paragraph' ||
+              nestedChild.type === 'heading' ||
+              nestedChild.type === 'list' ||
+              nestedChild.type === 'blockquote'
+            ) {
+              // If we have content before this block, add it as a paragraph first
+              if (flattened.length > 0) {
+                result.push({
+                  type: 'paragraph',
+                  children: flattened.splice(0), // Move accumulated content to a new paragraph
+                  format: '',
+                  indent: 0,
+                  textFormat: 0,
+                  version: 1,
+                })
+              }
+              // Add the block element at root level
+              result.push(nestedChild)
+            } else {
+              // Accumulate inline content
+              flattened.push(nestedChild)
+            }
+          }
+
+          // Add any remaining accumulated content as a paragraph
+          if (flattened.length > 0) {
+            result.push({
+              type: 'paragraph',
+              children: flattened,
+              format: '',
+              indent: 0,
+              textFormat: 0,
+              version: 1,
+            })
+          }
+        } else {
+          // No nested blocks, process children normally
+          result.push({
+            ...child,
+            children: processChildren(child.children),
+          })
         }
-        return child
-      })
-
-      return {
-        ...node,
-        children: sanitizedChildren,
+      } else if (child.children) {
+        result.push({
+          ...child,
+          children: processChildren(child.children),
+        })
+      } else {
+        result.push(child)
       }
     }
 
-    if (node.children) {
-      return {
-        ...node,
-        children: node.children.map(sanitizeNode),
-      }
-    }
-
-    return node
+    return result
   }
 
   return {
     ...data,
     root: {
       ...data.root,
-      children: data.root.children.map(sanitizeNode),
+      children: processChildren(data.root.children),
     },
   }
 }
@@ -114,7 +162,7 @@ export default function RichText(props: Props) {
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+          'mx-auto prose md:prose-md dark:prose-invert prose-p:my-2': enableProse,
         },
         className,
       )}

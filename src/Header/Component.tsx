@@ -12,13 +12,13 @@ export async function Header() {
     <div className='flex flex-col'>
       <BlockWrapper>
         <BlockWrapperContent>
-          <div className='max-h-50'>
+          <div className='sm:h-40 h-20 overflow-hidden'>
             <FlickeringGrid
-              className='absolute inset-0 z-0 size-full'
+              className='size-full inset-0 h-full'
               squareSize={4}
-              gridGap={6}
+              gridGap={4}
               color='#6B7280'
-              maxOpacity={0.5}
+              maxOpacity={0.8}
               flickerChance={0.1}
             />
           </div>

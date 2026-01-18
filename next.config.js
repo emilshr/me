@@ -18,6 +18,9 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        hostname: 'api.microlink.io', // Microlink Image Preview
+      },
     ],
   },
   webpack: (webpackConfig) => {
