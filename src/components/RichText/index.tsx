@@ -8,11 +8,11 @@ import type {
 import {
   RichText as ConvertRichText,
   type JSXConvertersFunction,
-  LinkJSXConverter,
 } from '@payloadcms/richtext-lexical/react'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CodeBlock, type CodeBlockProps } from '@/blocks/Code/Component'
+import { LinkPreview } from '@/components/ui/link-preview'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import type {
   BannerBlock as BannerBlockProps,
@@ -122,9 +122,36 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
 }
 
+// Custom link converter using LinkPreview
+const customLinkConverter = ({ node, nodesToJSX }: any) => {
+  const { fields } = node
+
+  // Handle internal document links
+  if (fields?.doc) {
+    const href = internalDocToHref({ linkNode: node })
+    return (
+      <LinkPreview url={href} className='underline hover:no-underline'>
+        {nodesToJSX({ nodes: node.children })}
+      </LinkPreview>
+    )
+  }
+
+  // Handle external links
+  if (fields?.url) {
+    return (
+      <LinkPreview url={fields.url} className='underline hover:no-underline'>
+        {nodesToJSX({ nodes: node.children })}
+      </LinkPreview>
+    )
+  }
+
+  // Fallback for links without proper fields
+  return <span className='underline'>{nodesToJSX({ nodes: node.children })}</span>
+}
+
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
+  link: customLinkConverter,
   blocks: {
     banner: ({ node }) => <BannerBlock className='col-start-2 mb-4' {...node.fields} />,
     mediaBlock: ({ node }) => (
