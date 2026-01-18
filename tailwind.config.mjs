@@ -38,11 +38,11 @@ const config = {
         xl: '2rem',
       },
       screens: {
-        '2xl': '86rem',
-        lg: '64rem',
-        md: '48rem',
-        sm: '40rem',
-        xl: '80rem',
+        '2xl': '70rem',
+        xl: '65rem',
+        lg: '60rem',
+        md: '55rem',
+        sm: '50rem',
       },
     },
     extend: {
@@ -60,6 +60,7 @@ const config = {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
+        'block-border': 'var(--block-border)',
         background: 'hsl(var(--background))',
         border: 'hsla(var(--border))',
         card: {

@@ -206,7 +206,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | BlockHeader)[];
   meta?: {
     title?: string | null;
     /**
@@ -787,6 +787,16 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlockHeader".
+ */
+export interface BlockHeader {
+  header: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'block-header';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "experiences".
  */
 export interface Experience {
@@ -1158,6 +1168,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        'block-header'?: T | BlockHeaderSelect<T>;
       };
   meta?:
     | T
@@ -1254,6 +1265,15 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlockHeader_select".
+ */
+export interface BlockHeaderSelect<T extends boolean = true> {
+  header?: T;
   id?: T;
   blockName?: T;
 }

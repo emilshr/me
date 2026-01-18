@@ -39,7 +39,10 @@ export const Companies: CollectionConfig<'companies'> = {
     {
       name: 'endDate',
       type: 'date',
-      required: false,
+      admin: {
+        condition: (_, { isCurrentJob } = {}) => !isCurrentJob,
+      },
+      required: true,
       label: 'End date',
     },
     {

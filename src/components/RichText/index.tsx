@@ -22,6 +22,46 @@ import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
 
+// Utility to sanitize rich text content and prevent nested block elements
+const sanitizeRichText = (data: DefaultTypedEditorState): DefaultTypedEditorState => {
+  if (!data?.root?.children) return data
+
+  const sanitizeNode = (node: any): any => {
+    if (node.type === 'paragraph' && node.children) {
+      // Ensure paragraph children don't contain block-level elements
+      const sanitizedChildren = node.children.map((child: any) => {
+        // If a paragraph contains another paragraph, flatten it
+        if (child.type === 'paragraph' && child.children) {
+          return child.children
+        }
+        return child
+      }).flat()
+
+      return {
+        ...node,
+        children: sanitizedChildren,
+      }
+    }
+
+    if (node.children) {
+      return {
+        ...node,
+        children: node.children.map(sanitizeNode),
+      }
+    }
+
+    return node
+  }
+
+  return {
+    ...data,
+    root: {
+      ...data.root,
+      children: data.root.children.map(sanitizeNode),
+    },
+  }
+}
+
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
@@ -62,7 +102,11 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props
+  const { className, enableProse = true, enableGutter = true, data, ...rest } = props
+
+  // Sanitize the rich text data to prevent nested block elements
+  const sanitizedData = sanitizeRichText(data)
+
   return (
     <ConvertRichText
       converters={jsxConverters}
@@ -75,6 +119,7 @@ export default function RichText(props: Props) {
         },
         className,
       )}
+      data={sanitizedData}
       {...rest}
     />
   )
