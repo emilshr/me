@@ -1,9 +1,8 @@
-import React from 'react'
-
-import type { Page } from '@/payload-types'
+import type React from 'react'
+import { BlockWrapper, BlockWrapperContent } from '@/components/block-wrapper'
 
 import RichText from '@/components/RichText'
-import { BlockWrapperContent, BlockWrapper } from '@/components/block-wrapper'
+import type { Page } from '@/payload-types'
 
 type LowImpactHeroType =
   | {

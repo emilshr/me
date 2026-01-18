@@ -1,6 +1,6 @@
+import type { CollectionConfig } from 'payload'
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { CollectionConfig } from 'payload'
 
 export const Companies: CollectionConfig<'companies'> = {
   slug: 'companies',

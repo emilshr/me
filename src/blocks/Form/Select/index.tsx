@@ -1,6 +1,7 @@
 import type { SelectField } from '@payloadcms/plugin-form-builder/types'
+import type React from 'react'
 import type { Control, FieldErrorsImpl } from 'react-hook-form'
-
+import { Controller } from 'react-hook-form'
 import { Label } from '@/components/ui/label'
 import {
   Select as SelectComponent,
@@ -9,10 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import React from 'react'
-import { Controller } from 'react-hook-form'
 
-import { Error } from '../Error'
+import { ErrorBlock } from '../Error'
 import { Width } from '../Width'
 
 export const Select: React.FC<
@@ -26,8 +25,8 @@ export const Select: React.FC<
       <Label htmlFor={name}>
         {label}
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
+          <span className='required'>
+            * <span className='sr-only'>(required)</span>
           </span>
         )}
       </Label>
@@ -40,7 +39,7 @@ export const Select: React.FC<
 
           return (
             <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className="w-full" id={name}>
+              <SelectTrigger className='w-full' id={name}>
                 <SelectValue placeholder={label} />
               </SelectTrigger>
               <SelectContent>
@@ -57,7 +56,7 @@ export const Select: React.FC<
         }}
         rules={{ required }}
       />
-      {errors[name] && <Error name={name} />}
+      {errors[name] && <ErrorBlock name={name} />}
     </Width>
   )
 }

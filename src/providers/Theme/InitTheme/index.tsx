@@ -1,12 +1,12 @@
 import Script from 'next/script'
-import React from 'react'
+import type React from 'react'
 
 import { defaultTheme, themeLocalStorageKey } from '../ThemeSelector/types'
 
 export const InitTheme: React.FC = () => {
   return (
-    // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
     <Script
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: This is needed for the theme plugin to work
       dangerouslySetInnerHTML={{
         __html: `
   (function () {
@@ -43,8 +43,8 @@ export const InitTheme: React.FC = () => {
   })();
   `,
       }}
-      id="theme-script"
-      strategy="beforeInteractive"
+      id='theme-script'
+      strategy='beforeInteractive'
     />
   )
 }

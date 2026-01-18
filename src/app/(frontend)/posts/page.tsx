@@ -1,13 +1,11 @@
+import configPromise from '@payload-config'
 import type { Metadata } from 'next/types'
-
+import { getPayload } from 'payload'
+import { BlockWrapper, BlockWrapperContent } from '@/components/block-wrapper'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import React from 'react'
 import PageClient from './page.client'
-import { BlockWrapperContent, BlockWrapper } from '@/components/block-wrapper'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -33,9 +31,9 @@ export default async function Page() {
       <BlockWrapperContent>
         <PageClient />
 
-        <div className="container mb-8">
+        <div className='container mb-8'>
           <PageRange
-            collection="posts"
+            collection='posts'
             currentPage={posts.page}
             limit={12}
             totalDocs={posts.totalDocs}
@@ -44,7 +42,7 @@ export default async function Page() {
 
         <CollectionArchive posts={posts.docs} />
 
-        <div className="container">
+        <div className='container'>
           {posts.totalPages > 1 && posts.page && (
             <Pagination page={posts.page} totalPages={posts.totalPages} />
           )}

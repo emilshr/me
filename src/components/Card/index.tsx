@@ -1,12 +1,11 @@
 'use client'
+import Link from 'next/link'
+import type React from 'react'
+import { Fragment } from 'react'
+import { Media } from '@/components/Media'
+import type { Post } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
-import Link from 'next/link'
-import React, { Fragment } from 'react'
-
-import type { Post } from '@/payload-types'
-
-import { Media } from '@/components/Media'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 
@@ -37,13 +36,13 @@ export const Card: React.FC<{
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+      <div className='relative w-full '>
+        {!metaImage && <div className=''>No image</div>}
+        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size='33vw' />}
       </div>
-      <div className="p-4">
+      <div className='p-4'>
         {showCategories && hasCategories && (
-          <div className="uppercase text-sm mb-4">
+          <div className='uppercase text-sm mb-4'>
             {showCategories && hasCategories && (
               <div>
                 {categories?.map((category, index) => {
@@ -55,7 +54,7 @@ export const Card: React.FC<{
                     const isLast = index === categories.length - 1
 
                     return (
-                      <Fragment key={index}>
+                      <Fragment key={index.toString()}>
                         {categoryTitle}
                         {!isLast && <Fragment>, &nbsp;</Fragment>}
                       </Fragment>
@@ -69,15 +68,15 @@ export const Card: React.FC<{
           </div>
         )}
         {titleToUse && (
-          <div className="prose">
+          <div className='prose'>
             <h3>
-              <Link className="not-prose" href={href} ref={link.ref}>
+              <Link className='not-prose' href={href} ref={link.ref}>
                 {titleToUse}
               </Link>
             </h3>
           </div>
         )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
+        {description && <div className='mt-2'>{description && <p>{sanitizedDescription}</p>}</div>}
       </div>
     </article>
   )

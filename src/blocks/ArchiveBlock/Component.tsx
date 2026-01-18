@@ -1,12 +1,10 @@
-import type { Post, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
-
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
-import RichText from '@/components/RichText'
-
-import { CollectionArchive } from '@/components/CollectionArchive'
+import type React from 'react'
 import { BlockWrapperContent } from '@/components/block-wrapper'
+import { CollectionArchive } from '@/components/CollectionArchive'
+import RichText from '@/components/RichText'
+import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -45,9 +43,12 @@ export const ArchiveBlock: React.FC<
     posts = fetchedPosts.docs
   } else {
     if (selectedDocs?.length) {
-      const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === 'object') return post.value
-      }) as Post[]
+      const filteredSelectedPosts: Post[] = []
+      selectedDocs.forEach((post) => {
+        if (typeof post.value === 'object') {
+          filteredSelectedPosts.push(post.value)
+        }
+      })
 
       posts = filteredSelectedPosts
     }
@@ -57,8 +58,8 @@ export const ArchiveBlock: React.FC<
     <BlockWrapperContent>
       <div id={`block-${id}`}>
         {introContent && (
-          <div className="container mb-16">
-            <RichText className="ms-0 max-w-3xl" data={introContent} enableGutter={false} />
+          <div className='container mb-16'>
+            <RichText className='ms-0 max-w-3xl' data={introContent} enableGutter={false} />
           </div>
         )}
         <CollectionArchive posts={posts} />

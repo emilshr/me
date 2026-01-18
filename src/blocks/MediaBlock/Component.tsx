@@ -1,13 +1,11 @@
 import type { StaticImageData } from 'next/image'
-
-import { cn } from '@/utilities/ui'
-import React from 'react'
+import type React from 'react'
+import { BlockWrapperContent } from '@/components/block-wrapper'
 import RichText from '@/components/RichText'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
-
+import { cn } from '@/utilities/ui'
 import { Media } from '../../components/Media'
-import { BlockWrapperContent } from '@/components/block-wrapper'
 
 type Props = MediaBlockProps & {
   breakout?: boolean
@@ -30,6 +28,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
     disableInnerContainer,
   } = props
 
+  // biome-ignore lint/suspicious/noImplicitAnyLet: Cannot determine the type here
   let caption
   if (media && typeof media === 'object') caption = media.caption
 

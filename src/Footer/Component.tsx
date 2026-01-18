@@ -1,33 +1,30 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
-import React from 'react'
-
-import type { Footer } from '@/payload-types'
-
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import { BlockWrapperContent } from '@/components/block-wrapper'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
-import { BlockWrapperContent, BlockWrapper } from '@/components/block-wrapper'
+import type { Footer as FooterType } from '@/payload-types'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const footerData: FooterType = await getCachedGlobal('footer', 1)()
 
   const navItems = footerData?.navItems || []
 
   return (
     <footer>
-      <div className="container">
+      <div className='container'>
         <BlockWrapperContent>
-          <div className="flex flex-col md:flex-row md:justify-between">
-            <Link href="/">
+          <div className='flex flex-col md:flex-row md:justify-between'>
+            <Link href='/'>
               <Logo />
             </Link>
 
-            <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
+            <div className='flex flex-col-reverse items-start md:flex-row gap-4 md:items-center'>
               <ThemeSelector />
-              <nav className="flex flex-col md:flex-row gap-4">
+              <nav className='flex flex-col md:flex-row gap-4'>
                 {navItems.map(({ link }, i) => {
-                  return <CMSLink className="text-white" key={i} {...link} />
+                  return <CMSLink className='text-white' key={i.toString()} {...link} />
                 })}
               </nav>
             </div>
