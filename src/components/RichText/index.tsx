@@ -12,8 +12,8 @@ import {
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CodeBlock, type CodeBlockProps } from '@/blocks/Code/Component'
-import { LinkPreview } from '@/components/ui/link-preview'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { LinkPreview } from '@/components/ui/link-preview'
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
@@ -153,7 +153,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...defaultConverters,
   link: customLinkConverter,
   blocks: {
-    banner: ({ node }) => <BannerBlock className='col-start-2 mb-4' {...node.fields} />,
+    banner: ({ node }) => <BannerBlock className='col-start-2' {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
         className='col-start-1 col-span-3'
@@ -189,7 +189,7 @@ export default function RichText(props: Props) {
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert prose-p:my-2': enableProse,
+          // 'mx-auto prose md:prose-md dark:prose-invert prose-p:my-2': enableProse,
         },
         className,
       )}

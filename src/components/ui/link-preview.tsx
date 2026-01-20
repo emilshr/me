@@ -1,10 +1,12 @@
 /** biome-ignore-all lint/suspicious/noImplicitAnyLet: Imported component */
+/** biome-ignore-all lint/suspicious/noExplicitAny: Imported component */
+/** biome-ignore-all lint/a11y/noRedundantAlt: Imported component */
+/** biome-ignore-all lint/performance/noImgElement: Imported component */
 'use client'
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
-
+import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react'
 import { encode } from 'qss'
 import React from 'react'
-import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react'
 import { createPortal } from 'react-dom'
 
 import { cn } from '@/utilities/ui'
@@ -25,8 +27,6 @@ export const LinkPreview = ({
   className,
   width = 200,
   height = 125,
-  quality = 50,
-  layout = 'fixed',
   isStatic = false,
   imageSrc = '',
 }: LinkPreviewProps) => {
@@ -101,13 +101,11 @@ export const LinkPreview = ({
               className='block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
               style={{ fontSize: 0 }}
             >
-              {/** biome-ignore lint/performance/noImgElement: Imported component */}
               <img
                 src={isStatic ? imageSrc : src}
                 width={width}
                 height={height}
                 className='rounded-lg'
-                // biome-ignore lint/a11y/noRedundantAlt: Imported component
                 alt='preview image'
               />
             </a>

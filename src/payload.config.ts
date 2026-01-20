@@ -16,6 +16,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -57,6 +58,11 @@ export default buildConfig({
       ],
     },
   },
+  email: resendAdapter({
+    defaultFromAddress: 'info@security.emilshr.com',
+    apiKey: process.env.RESEND_API_KEY || '',
+    defaultFromName: 'Emil Sharier',
+  }),
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: postgresAdapter({
@@ -64,6 +70,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
+
   collections: [Pages, Posts, Media, Categories, Users, Experiences, Links, Companies],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
@@ -88,4 +95,5 @@ export default buildConfig({
     },
     tasks: [],
   },
+  telemetry: true,
 })

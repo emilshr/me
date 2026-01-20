@@ -1,3 +1,4 @@
+import { cn } from '@/utilities/ui'
 import type { PropsWithChildren } from 'react'
 
 export const BlockWrapperContent = ({ children }: PropsWithChildren) => {
@@ -10,8 +11,8 @@ export const BlockWrapperContent = ({ children }: PropsWithChildren) => {
 
 export const BlockWrapper = ({ children }: PropsWithChildren) => {
   return (
-    <div className='relative bg-[linear-gradient(to_right,theme(colors.block-border)_60%,transparent_0%)] bg-size-[18px_1px] bg-repeat-x bg-position-[0_100%] flex flex-col w-full'>
-      <div className='container'>{children}</div>
+    <div className='relative px-2 sm:px-0 bg-[linear-gradient(to_right,theme(colors.block-border)_60%,transparent_0%)] bg-size-[18px_1px] bg-repeat-x bg-position-[0_100%] flex flex-col w-full'>
+      {children}
     </div>
   )
 }

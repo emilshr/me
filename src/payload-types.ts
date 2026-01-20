@@ -206,7 +206,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | BlockHeader)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | BlockHeader | Accordion)[];
   meta?: {
     title?: string | null;
     /**
@@ -797,6 +797,43 @@ export interface BlockHeader {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Accordion".
+ */
+export interface Accordion {
+  collapsible?: boolean | null;
+  variant: 'single' | 'multiple';
+  accordionItems?:
+    | {
+        icon?: (number | null) | Media;
+        title: string;
+        subTitle?: string | null;
+        topRightSubTitle?: string | null;
+        topLeftSubTitle?: string | null;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'accordion';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "experiences".
  */
 export interface Experience {
@@ -1169,6 +1206,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         'block-header'?: T | BlockHeaderSelect<T>;
+        accordion?: T | AccordionSelect<T>;
       };
   meta?:
     | T
@@ -1274,6 +1312,28 @@ export interface FormBlockSelect<T extends boolean = true> {
  */
 export interface BlockHeaderSelect<T extends boolean = true> {
   header?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Accordion_select".
+ */
+export interface AccordionSelect<T extends boolean = true> {
+  collapsible?: T;
+  variant?: T;
+  accordionItems?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        subTitle?: T;
+        topRightSubTitle?: T;
+        topLeftSubTitle?: T;
+        content?: T;
+        value?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

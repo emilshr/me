@@ -7,6 +7,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
+import { Accordion } from '@/blocks/AccordionBlock/config'
 import { BlockHeader } from '@/blocks/BlockHeader/config'
 import { hero } from '@/heros/config'
 import { authenticated } from '../../access/authenticated'
@@ -71,7 +72,15 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, BlockHeader],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                BlockHeader,
+                Accordion,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

@@ -11,6 +11,8 @@ import RichText from '@/components/RichText'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
+import { BlockWrapper, BlockWrapperContent } from '@/components/block-wrapper'
+import { BlockHeader } from '@/blocks/BlockHeader/Component'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -49,7 +51,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects url={url} />
 
   return (
-    <article className='pt-16 pb-16'>
+    <article>
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -59,16 +61,27 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <PostHero post={post} />
 
-      <div className='flex flex-col items-center gap-4 pt-8'>
-        <div className='container'>
-          <RichText className='max-w-3xl mx-auto' data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className='mt-12 max-w-208 lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]'
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-            />
-          )}
-        </div>
+      <div className='flex flex-col items-center'>
+        <BlockWrapper>
+          <BlockWrapperContent>
+            <RichText className='max-w-3xl mx-auto' data={post.content} enableGutter={false} />
+          </BlockWrapperContent>
+        </BlockWrapper>
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <div className='flex flex-col w-full'>
+            <BlockWrapper>
+              <BlockHeader blockType='block-header' header='Related posts' />
+            </BlockWrapper>
+            <BlockWrapper>
+              <BlockWrapperContent>
+                <RelatedPosts
+                  className='max-w-208 lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]'
+                  docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+                />
+              </BlockWrapperContent>
+            </BlockWrapper>
+          </div>
+        )}
       </div>
     </article>
   )

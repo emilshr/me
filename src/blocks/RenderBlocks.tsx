@@ -8,6 +8,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { BlockWrapper } from '@/components/block-wrapper'
 import type { Page } from '@/payload-types'
 import { BlockHeader } from './BlockHeader/Component'
+import { AccordionBlock } from './AccordionBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -16,6 +17,7 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   'block-header': BlockHeader,
+  accordion: AccordionBlock,
 }
 
 export const RenderBlocks: React.FC<{
