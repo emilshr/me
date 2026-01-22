@@ -16,7 +16,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       })}
       <Link href='/search'>
         <span className='sr-only'>Search</span>
-        <SearchIcon className='w-5 text-primary' />
+        <SearchIcon className='w-4 h-4 text-primary' />
       </Link>
     </nav>
   )

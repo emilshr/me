@@ -4,7 +4,6 @@ import { FlickeringGrid } from '@/components/ui/flickering-grid'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 import type { Footer as FooterType } from '@/payload-types'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 
 export async function Footer() {
@@ -22,7 +21,6 @@ export async function Footer() {
             </Link>
 
             <div className='flex flex-col-reverse items-start md:flex-row gap-4 md:items-center'>
-              <ThemeSelector />
               <nav className='flex flex-col md:flex-row gap-4'>
                 {navItems.map(({ link }, i) => {
                   return <CMSLink className='text-white' key={i.toString()} {...link} />
@@ -33,7 +31,7 @@ export async function Footer() {
         </BlockWrapperContent>
       </BlockWrapper>
 
-      <BlockWrapper>
+      <BlockWrapper className='!bg-transparent'>
         <BlockWrapperContent>
           <div className='sm:h-40 h-20 overflow-hidden'>
             <FlickeringGrid

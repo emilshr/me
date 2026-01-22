@@ -8,6 +8,7 @@ import { Logo } from '@/components/Logo/Logo'
 import type { Header } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { HeaderNav } from './Nav'
+import { ThemeToggle } from './Nav/ThemeToggle'
 
 interface HeaderClientProps {
   data: Header
@@ -32,9 +33,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <header className='relative z-20' {...(theme ? { 'data-theme': theme } : {})}>
       <div className='flex justify-between'>
-        <Link href='/'>
-          <Logo />
-        </Link>
+        <div className='flex items-center gap-1'>
+          <Link href='/'>
+            <Logo />
+          </Link>
+          <ThemeToggle />
+        </div>
         <HeaderNav data={data} />
       </div>
     </header>

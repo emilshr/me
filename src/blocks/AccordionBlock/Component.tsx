@@ -19,7 +19,7 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
     <BlockWrapper>
       <BlockWrapperContent className='!p-0'>
         <div className='px-4'>
-          <Accordion type={variant} collapsible={!!collapsible}>
+          <Accordion type={variant} {...(collapsible && { collapsible })}>
             {accordionItems?.map(
               ({
                 title,
