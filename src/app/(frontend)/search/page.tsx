@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import type { Metadata } from 'next/types'
 import { getPayload } from 'payload'
+import { BlockWrapper, BlockWrapperContent } from '@/components/block-wrapper'
 import type { CardPostData } from '@/components/Card'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Search } from '@/search/Component'
@@ -58,24 +59,26 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   })
 
   return (
-    <div className='pt-24 pb-24'>
-      <PageClient />
-      <div className='container mb-16'>
-        <div className='prose dark:prose-invert max-w-none text-center'>
-          <h1 className='mb-8 lg:mb-16'>Search</h1>
+    <BlockWrapper>
+      <BlockWrapperContent>
+        <PageClient />
+        <div className='container mb-16'>
+          <div className='prose dark:prose-invert max-w-none text-center'>
+            <h1 className='mb-8 lg:mb-16'>Search</h1>
 
-          <div className='max-w-200 mx-auto'>
-            <Search />
+            <div className='max-w-200 mx-auto'>
+              <Search />
+            </div>
           </div>
         </div>
-      </div>
 
-      {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
-      ) : (
-        <div className='container'>No results found.</div>
-      )}
-    </div>
+        {posts.totalDocs > 0 ? (
+          <CollectionArchive posts={posts.docs as CardPostData[]} />
+        ) : (
+          <div>No results found.</div>
+        )}
+      </BlockWrapperContent>
+    </BlockWrapper>
   )
 }
 

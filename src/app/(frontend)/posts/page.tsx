@@ -3,7 +3,6 @@ import type { Metadata } from 'next/types'
 import { getPayload } from 'payload'
 import { BlockWrapper, BlockWrapperContent } from '@/components/block-wrapper'
 import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import PageClient from './page.client'
 
@@ -31,14 +30,6 @@ export default async function Page() {
       <BlockWrapperContent>
         <PageClient />
 
-        <div className='container mb-8'>
-          <PageRange
-            collection='posts'
-            currentPage={posts.page}
-            limit={12}
-            totalDocs={posts.totalDocs}
-          />
-        </div>
 
         <CollectionArchive posts={posts.docs} />
 

@@ -3,7 +3,6 @@ import { getPayload } from 'payload'
 import type React from 'react'
 import { BlockWrapperContent } from '@/components/block-wrapper'
 import { CollectionArchive } from '@/components/CollectionArchive'
-import RichText from '@/components/RichText'
 import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
 
 export const ArchiveBlock: React.FC<
@@ -11,7 +10,7 @@ export const ArchiveBlock: React.FC<
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
+  const { id, categories, limit: limitFromProps, populateBy, selectedDocs } = props
 
   const limit = limitFromProps || 3
 
@@ -57,11 +56,6 @@ export const ArchiveBlock: React.FC<
   return (
     <BlockWrapperContent>
       <div id={`block-${id}`}>
-        {introContent && (
-          <div className='container mb-16'>
-            <RichText className='ms-0 max-w-3xl' data={introContent} enableGutter={false} />
-          </div>
-        )}
         <CollectionArchive posts={posts} />
       </div>
     </BlockWrapperContent>

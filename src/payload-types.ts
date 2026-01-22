@@ -809,8 +809,8 @@ export interface Accordion {
         icon?: (number | null) | Media;
         title: string;
         subTitle?: string | null;
-        topRightSubTitle?: string | null;
-        topLeftSubTitle?: string | null;
+        topRightTitle?: string | null;
+        bottomRightSubTitle?: string | null;
         content: {
           root: {
             type: string;
@@ -1330,8 +1330,8 @@ export interface AccordionSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         subTitle?: T;
-        topRightSubTitle?: T;
-        topLeftSubTitle?: T;
+        topRightTitle?: T;
+        bottomRightSubTitle?: T;
         content?: T;
         value?: T;
         id?: T;

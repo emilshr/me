@@ -49,14 +49,14 @@ export const Accordion: Block = {
           label: 'Sub title',
         },
         {
-          name: 'topRightSubTitle',
+          name: 'topRightTitle',
           type: 'text',
-          label: 'Top Right Sub Title',
+          label: 'Top Right Title',
         },
         {
-          name: 'topLeftSubTitle',
+          name: 'bottomRightSubTitle',
           type: 'text',
-          label: 'Top Left Sub Title',
+          label: 'Bottom Right Sub Title',
         },
         {
           name: 'content',
