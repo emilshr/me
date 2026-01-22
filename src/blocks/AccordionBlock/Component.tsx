@@ -33,7 +33,7 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
               }) => {
                 return (
                   <AccordionItem key={id} value={value}>
-                    <AccordionTrigger className='relative justify-start'>
+                    <AccordionTrigger className='relative justify-start group'>
                       <div className='flex items-start gap-3 w-2/3'>
                         {icon && (
                           <Media
@@ -43,13 +43,13 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
                           />
                         )}
                         <div className='flex flex-col items-start'>
-                          <div className='font-semibold'>{title}</div>
+                          <div className='font-semibold group-hover:underline'>{title}</div>
                           {subTitle && (
                             <div className='text-sm text-muted-foreground mt-1'>{subTitle}</div>
                           )}
                         </div>
                       </div>
-                      <div className='flex flex-col items-end text-right text-sm text-muted-foreground ml-auto w-1/3'>
+                      <div className='flex flex-col items-end text-right text-sm text-muted-foreground ml-auto w-1/3 pr-4'>
                         {topRightTitle && <div className='mb-1'>{topRightTitle}</div>}
                         {bottomRightSubTitle && <div>{bottomRightSubTitle}</div>}
                       </div>
