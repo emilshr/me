@@ -1,9 +1,20 @@
-import { cn } from '@/utilities/ui'
 import type { PropsWithChildren } from 'react'
+import { cn } from '@/utilities/ui'
 
-export const BlockWrapperContent = ({ children }: PropsWithChildren) => {
+interface BlockWrapperContentProps extends PropsWithChildren {
+  className?: string
+}
+
+export const BlockWrapperContent = ({ children, className }: BlockWrapperContentProps) => {
   return (
-    <div className='container p-4 relative bg-[linear-gradient(to_bottom,theme(colors.block-border)_60%,transparent_0%),linear-gradient(to_bottom,theme(colors.block-border)_60%,transparent_0%)] bg-size-[1px_18px] bg-repeat-y bg-position-[0_0,100%_0]'>
+    <div
+      className={cn(
+        'container p-4 relative',
+        'before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-[linear-gradient(to_bottom,theme(colors.block-border)_60%,transparent_0%)] before:bg-[length:1px_18px] before:bg-repeat-y',
+        'after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-[linear-gradient(to_bottom,theme(colors.block-border)_60%,transparent_0%)] after:bg-[length:1px_18px] after:bg-repeat-y',
+        className,
+      )}
+    >
       {children}
     </div>
   )

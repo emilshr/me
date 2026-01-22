@@ -1,6 +1,6 @@
 import type { StaticImageData } from 'next/image'
 import type React from 'react'
-import { BlockWrapperContent } from '@/components/block-wrapper'
+import { BlockWrapper, BlockWrapperContent } from '@/components/block-wrapper'
 import RichText from '@/components/RichText'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
@@ -15,6 +15,7 @@ type Props = MediaBlockProps & {
   imgClassName?: string
   staticImage?: StaticImageData
   disableInnerContainer?: boolean
+  isInRichText?: boolean
 }
 
 export const MediaBlock: React.FC<Props> = (props) => {
@@ -26,18 +27,19 @@ export const MediaBlock: React.FC<Props> = (props) => {
     media,
     staticImage,
     disableInnerContainer,
+    isInRichText = false,
   } = props
 
   // biome-ignore lint/suspicious/noImplicitAnyLet: Cannot determine the type here
   let caption
   if (media && typeof media === 'object') caption = media.caption
 
-  return (
+  const content = (
     <div
       className={cn(
         '',
         {
-          container: enableGutter,
+          container: enableGutter && !isInRichText,
         },
         className,
       )}
@@ -54,7 +56,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
           className={cn(
             'mt-6',
             {
-              container: !disableInnerContainer,
+              container: !disableInnerContainer && !isInRichText,
             },
             captionClassName,
           )}
@@ -63,5 +65,17 @@ export const MediaBlock: React.FC<Props> = (props) => {
         </div>
       )}
     </div>
+  )
+
+  // In rich text context, only apply top/bottom borders
+  if (isInRichText) {
+    return <BlockWrapper>{content}</BlockWrapper>
+  }
+
+  // In standalone block context, apply full wrapper with all borders
+  return (
+    <BlockWrapper>
+      <BlockWrapperContent>{content}</BlockWrapperContent>
+    </BlockWrapper>
   )
 }

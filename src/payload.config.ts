@@ -23,6 +23,10 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    autoLogin:
+      process.env.NODE_ENV === 'development'
+        ? { email: 'admin@gmail.com', password: 'test' }
+        : false,
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
@@ -70,7 +74,6 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-
   collections: [Pages, Posts, Media, Categories, Users, Experiences, Links, Companies],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],

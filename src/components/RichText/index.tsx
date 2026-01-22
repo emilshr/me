@@ -162,6 +162,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         captionClassName='mx-auto max-w-3xl'
         enableGutter={false}
         disableInnerContainer={true}
+        isInRichText={true}
       />
     ),
     code: ({ node }) => <CodeBlock className='col-start-2' {...node.fields} />,
