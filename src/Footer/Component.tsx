@@ -31,7 +31,7 @@ export async function Footer() {
         </BlockWrapperContent>
       </BlockWrapper>
 
-      <BlockWrapper className='!bg-transparent'>
+      <BlockWrapper>
         <BlockWrapperContent>
           <div className='sm:h-40 h-20 overflow-hidden'>
             <FlickeringGrid
