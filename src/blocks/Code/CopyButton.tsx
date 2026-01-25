@@ -1,32 +1,28 @@
 'use client'
+import { CheckIcon } from '@payloadcms/ui/icons/Check'
 import { CopyIcon } from '@payloadcms/ui/icons/Copy'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 export function CopyButton({ code }: { code: string }) {
-  const [text, setText] = useState('Copy')
+  const [copied, setCopied] = useState(false)
 
-  function updateCopyStatus() {
-    if (text === 'Copy') {
-      setText(() => 'Copied!')
-      setTimeout(() => {
-        setText(() => 'Copy')
-      }, 1000)
-    }
+  async function handleCopy() {
+    await navigator.clipboard.writeText(code)
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 2000)
   }
 
   return (
     <div className='flex justify-end align-middle'>
       <Button
-        className='flex gap-1'
+        className='cursor-pointer transition-all duration-200'
         variant={'secondary'}
-        onClick={async () => {
-          await navigator.clipboard.writeText(code)
-          updateCopyStatus()
-        }}
+        onClick={handleCopy}
       >
-        <p>{text}</p>
-        <CopyIcon />
+        {copied ? <CheckIcon /> : <CopyIcon />}
       </Button>
     </div>
   )
