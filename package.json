@@ -53,6 +53,7 @@
     "lucide-react": "^0.378.0",
     "motion": "^12.27.1",
     "next": "15.4.10",
+    "next-nprogress-bar": "^2.4.7",
     "next-sitemap": "^4.2.3",
     "payload": "3.72.0",
     "prism-react-renderer": "^2.4.1",

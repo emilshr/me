@@ -6,6 +6,7 @@ import { draftMode } from 'next/headers'
 import type React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { ProgressBarProvider } from '@/components/ProgressBarProvider'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
@@ -27,6 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <ProgressBarProvider />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
