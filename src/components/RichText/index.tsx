@@ -186,11 +186,9 @@ export default function RichText(props: Props) {
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        'payload-richtext',
+        'payload-richtext w-full',
         {
-          container: enableGutter,
-          'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert prose-p:my-2 prose-headings:font-semibold prose-headings:mt-6 prose-headings:mb-3 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-ul:my-4 prose-ol:my-4 prose-li:my-1 prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto':
+          'prose md:prose-md dark:prose-invert prose:my-0 prose:mx-0 prose:px-0 prose-p:my-0 prose-headings:font-semibold prose-headings:mt-0 prose-headings:mb-0 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-ul:my-0 prose-ol:my-0 prose-li:my-0 prose-blockquote:my-0 prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:my-0 prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto':
             enableProse,
         },
         className,

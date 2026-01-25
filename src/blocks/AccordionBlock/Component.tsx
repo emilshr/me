@@ -54,8 +54,8 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
                         {bottomRightSubTitle && <div>{bottomRightSubTitle}</div>}
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent>
-                      <RichText data={content} />
+                    <AccordionContent className='w-full'>
+                      <RichText data={content} className='max-w-none' />
                     </AccordionContent>
                   </AccordionItem>
                 )
